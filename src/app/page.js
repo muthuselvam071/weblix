@@ -190,11 +190,13 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center max-w-md sm:max-w-none mx-auto px-4">
-            <button onClick={handleQuickWhatsApp} className="btn-whatsapp px-8 py-4 rounded-full text-white font-bold text-base shadow-lg shadow-green-500/10">
-              💬 Start Your Project →
+            <button onClick={handleQuickWhatsApp} className="btn-whatsapp text-base">
+              <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 object-contain" />
+              <span>Start Your Project →</span>
             </button>
-            <button onClick={handleExploreWork} className="btn-outline px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-base transition">
-              📷 Explore Our Work →
+            <button onClick={handleExploreWork} className="btn-whatsapp text-base">
+              <img src="/instagram.png" alt="Instagram" className="w-5 h-5 object-contain" />
+              <span>Explore Our Work →</span>
             </button>
           </div>
           
@@ -462,23 +464,13 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div onClick={handleQuickWhatsApp} className="flex items-center gap-4 mb-6 cursor-pointer hover:opacity-90 transition">
+                <div onClick={handleQuickWhatsApp} className="flex items-center gap-4 cursor-pointer hover:opacity-90 transition">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/10 p-2.5">
                     <img src="/whatsapp.png" alt="WhatsApp" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <p className="text-xs text-gray-400 mb-0.5 font-semibold">WhatsApp</p>
                     <p className="text-sm sm:text-base font-bold text-white">Click to Chat</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/10 p-2.5">
-                    <img src="/email-logo-png-1110.png" alt="Email" className="w-full h-full object-contain" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-400 mb-0.5 font-semibold">Email</p>
-                    <p className="text-sm sm:text-base font-bold text-white">hello@weblix.com</p>
                   </div>
                 </div>
               </div>
@@ -492,8 +484,9 @@ export default function Home() {
                 <div className="mb-6">
                   <p className="font-extrabold text-green-400 text-lg sm:text-2xl tracking-wide">+91 63697 33630</p>
                 </div>
-                <button onClick={handleQuickWhatsApp} className="btn-whatsapp w-full py-4 text-sm sm:text-base font-bold shadow-lg shadow-green-500/20">
-                  💬 Chat Now on WhatsApp
+                <button onClick={handleQuickWhatsApp} className="btn-whatsapp w-full py-4 text-sm sm:text-base">
+                  <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 object-contain" />
+                  <span>Chat Now on WhatsApp</span>
                 </button>
                 <div className="mt-4 py-2.5 px-4 bg-green-500/5 border border-green-500/10 rounded-xl">
                   <p className="text-xs text-green-300 font-semibold">✅ Response Time: Within 5 minutes</p>
@@ -538,11 +531,13 @@ export default function Home() {
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 resize-none"></textarea>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                  <button type="submit" className="btn-whatsapp flex-1 py-4 text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-green-500/10">
-                    💬 Send to WhatsApp
+                  <button type="submit" className="btn-whatsapp flex-1 py-4 text-sm sm:text-base">
+                    <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 object-contain" />
+                    <span>Send to WhatsApp</span>
                   </button>
-                  <button type="button" onClick={openInstagramProfile} className="btn-outline flex-1 py-4 text-sm sm:text-base font-bold border border-white/20 bg-white/5 hover:bg-white/10 text-white">
-                    📷 View Instagram
+                  <button type="button" onClick={openInstagramProfile} className="btn-whatsapp flex-1 py-4 text-sm sm:text-base">
+                    <img src="/instagram.png" alt="Instagram" className="w-5 h-5 object-contain" />
+                    <span>View Instagram</span>
                   </button>
                 </div>
               </form>
