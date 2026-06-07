@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBLIX | Premium Digital Agency</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#7C3AED',
+                        accent: '#06B6D4',
+                        dark: '#030712',
+                        cardDark: 'rgba(15, 23, 42, 0.55)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #06B6D4 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px -8px #2563EB;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 28px -8px #25D366;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .floating { animation: float 6s ease-in-out infinite; }
+        
+        /* Mobile menu drawer styles */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #2563EB, #7C3AED);
+            border-radius: 10px;
+            border: 2px solid #030712;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+        }
+    </style>
+</head>
+<body class="bg-[#030712] text-gray-100 selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
+    
+    <!-- Menu Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-300" onclick="closeMenu()"></div>
+    
+    <!-- Mobile Menu Drawer -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 bottom-0 w-[280px] bg-[#030712]/95 backdrop-blur-xl border-l border-white/5 z-[100] p-8 flex flex-col justify-between">
+        <div>
+            <div class="flex justify-between items-center mb-8">
+                <div class="text-2xl font-bold gradient-text">WEBLIX</div>
+                <button class="text-2xl text-gray-400 hover:text-white" onclick="closeMenu()">✕</button>
+            </div>
+            <div class="flex flex-col gap-5 text-lg font-semibold">
+                <a href="#home" class="text-gray-300 hover:text-white border-b border-white/5 pb-2" onclick="closeMenu()">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-white border-b border-white/5 pb-2" onclick="closeMenu()">About</a>
+                <a href="#services" class="text-gray-300 hover:text-white border-b border-white/5 pb-2" onclick="closeMenu()">Services</a>
+                <a href="#projects" class="text-gray-300 hover:text-white border-b border-white/5 pb-2" onclick="closeMenu()">Projects</a>
+                <a href="#pricing" class="text-gray-300 hover:text-white border-b border-white/5 pb-2" onclick="closeMenu()">Pricing</a>
+                <a href="#contact" class="text-gray-300 hover:text-white pb-2" onclick="closeMenu()">Contact</a>
+            </div>
+        </div>
+        <button class="btn-primary w-full py-3.5 rounded-full text-white font-bold text-sm shadow-lg shadow-blue-500/20" onclick="startProjectWhatsApp()">Start Project →</button>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#030712]/80 backdrop-blur-xl border-b border-white/5 py-4 px-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2.5 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <img src="logo.png" alt="WEBLIX Logo" class="h-8 w-8 object-contain rounded-lg border border-white/10">
+                <span class="text-2xl font-extrabold gradient-text tracking-wide">WEBLIX</span>
+            </div>
+            <div class="hidden lg:flex items-center gap-8">
+                <a href="#home" class="text-gray-300 hover:text-white transition font-medium text-sm">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-white transition font-medium text-sm">About</a>
+                <a href="#services" class="text-gray-300 hover:text-white transition font-medium text-sm">Services</a>
+                <a href="#projects" class="text-gray-300 hover:text-white transition font-medium text-sm">Projects</a>
+                <a href="#pricing" class="text-gray-300 hover:text-white transition font-medium text-sm">Pricing</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition font-medium text-sm">Contact</a>
+            </div>
+            <button class="hidden lg:block btn-primary px-6 py-2.5 rounded-full text-white text-sm font-semibold" onclick="startProjectWhatsApp()">Start Project →</button>
+            <button class="lg:hidden text-2xl text-gray-300 hover:text-white p-1" onclick="openMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-28 pb-16">
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-30">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-laptop-and-smartphone-42145-large.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-[#030712]/90 to-[#030712]"></div>
+        </div>
+        
+        <!-- Glow Effects -->
+        <div class="absolute top-1/4 left-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full bg-gradient-to-br from-blue-600/10 to-indigo-600/0 blur-[80px] md:blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full bg-gradient-to-tr from-purple-600/10 to-pink-600/0 blur-[80px] md:blur-[120px] pointer-events-none"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-7xl mx-auto w-full">
+            <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white text-xs sm:text-sm font-medium mb-8">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span> ✨ Premium Digital Agency
+            </span>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold text-white mb-6 tracking-tight leading-[1.15]">BUILD DIGITAL <br><span class="gradient-text">EXPERIENCES</span></h1>
+            <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed px-4">Weblix crafts premium websites, digital platforms, and experiences that help businesses attract customers, increase credibility, and grow faster online.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center max-w-md sm:max-w-none mx-auto px-4">
+                <button class="btn-whatsapp px-8 py-4 rounded-full text-white font-bold text-base shadow-lg shadow-green-500/10" onclick="startProjectWhatsApp()">Start Your Project →</button>
+                <a href="https://www.instagram.com/weblix_world_2026?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-outline px-8 py-4 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-base transition flex items-center justify-center">Explore Our Work</a>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-16 md:mt-24 max-w-5xl mx-auto px-4">
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">100+</div>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-2 font-medium">Projects Delivered</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">98%</div>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-2 font-medium">Client Satisfaction</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl border border-white/5">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">24/7</div>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-2 font-medium">Support Available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#080B10] border-t border-white/5 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="text-blue-500 font-semibold tracking-wider text-xs sm:text-sm uppercase bg-blue-500/10 px-3 py-1.5 rounded-full">About Weblix</span>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-5 mb-6 leading-tight text-white">The Future Of <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">Business</span> Starts Online.</h2>
+                    <p class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed">In today's digital world, your website is your first impression, your salesperson, and your growth engine. At Weblix, we create premium digital experiences that help businesses stand out and succeed online.</p>
+                    <div class="bg-gradient-to-r from-blue-500/5 to-indigo-500/5 p-6 sm:p-8 rounded-2xl border border-white/5">
+                        <p class="text-xs text-blue-400 mb-1 tracking-widest font-semibold uppercase">FOUNDER</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2">Mathan Raj</h3>
+                        <p class="text-gray-400 text-sm sm:text-base">Visionary behind Weblix's premium digital solutions</p>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 glass-card p-2 rounded-3xl border border-white/5 relative group overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" alt="Dashboard" class="rounded-[1.4rem] w-full object-cover shadow-2xl transition duration-500 group-hover:scale-[1.02]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#0D111A] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 px-4">
+                <span class="text-blue-500 font-semibold tracking-wider text-xs sm:text-sm uppercase bg-blue-500/10 px-3 py-1.5 rounded-full">Our Expertise</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-5 text-white">Premium Services</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto text-sm sm:text-base font-medium">We deliver world-class digital solutions tailored to your business needs</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <div class="glass-card p-6 sm:p-8 rounded-3xl hover-lift border border-white/5 flex flex-col justify-between border-t-4 border-blue-500">
+                    <div>
+                        <div class="text-4xl mb-4">💻</div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">Frontend Website</h3>
+                        <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6">Modern responsive websites built for showcasing brands and businesses.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-[11px] bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-full border border-blue-500/20 font-medium">✓ Responsive</span>
+                        <span class="text-[11px] bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-full border border-blue-500/20 font-medium">✓ Fast Loading</span>
+                    </div>
+                </div>
+                <div class="glass-card p-6 sm:p-8 rounded-3xl hover-lift border border-white/5 flex flex-col justify-between border-t-4 border-purple-500">
+                    <div>
+                        <div class="text-4xl mb-4">🗄️</div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">Full Stack</h3>
+                        <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6">Advanced web applications with powerful backend functionality.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-[11px] bg-purple-500/10 text-purple-400 px-2.5 py-1 rounded-full border border-purple-500/20 font-medium">✓ Database</span>
+                        <span class="text-[11px] bg-purple-500/10 text-purple-400 px-2.5 py-1 rounded-full border border-purple-500/20 font-medium">✓ Auth</span>
+                    </div>
+                </div>
+                <div class="glass-card p-6 sm:p-8 rounded-3xl hover-lift border border-white/5 flex flex-col justify-between border-t-4 border-cyan-500">
+                    <div>
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">UI/UX Design</h3>
+                        <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6">Beautiful user experiences designed for engagement and conversions.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-[11px] bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full border border-cyan-500/20 font-medium">✓ Prototyping</span>
+                        <span class="text-[11px] bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-full border border-cyan-500/20 font-medium">✓ Research</span>
+                    </div>
+                </div>
+                <div class="glass-card p-6 sm:p-8 rounded-3xl hover-lift border border-white/5 flex flex-col justify-between border-t-4 border-pink-500">
+                    <div>
+                        <div class="text-4xl mb-4">⚡</div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">Performance</h3>
+                        <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6">Lightning-fast websites optimized for SEO and user experience.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-[11px] bg-pink-500/10 text-pink-400 px-2.5 py-1 rounded-full border border-pink-500/20 font-medium">✓ SEO</span>
+                        <span class="text-[11px] bg-pink-500/10 text-pink-400 px-2.5 py-1 rounded-full border border-pink-500/20 font-medium">✓ Core Web Vitals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#080B10] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 px-4">
+                <span class="text-blue-500 font-semibold tracking-wider text-xs sm:text-sm uppercase bg-blue-500/10 px-3 py-1.5 rounded-full">Our Portfolio</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-5 text-white">Our <span class="gradient-text">Delivered Projects</span></h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+                <div class="glass-card rounded-3xl overflow-hidden border border-white/5 flex flex-col justify-between group hover:border-blue-500/30 transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=800" alt="Siva Catering" class="w-full h-56 sm:h-64 object-cover transition duration-500 group-hover:scale-[1.02]">
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Siva Catering</h3>
+                            <p class="text-blue-400 mb-4 font-semibold text-sm sm:text-base">Professional catering business website</p>
+                            <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 font-medium">Online ordering, menu management, and event booking system.</p>
+                        </div>
+                        <div>
+                            <a href="https://siva-catering.vercel.app/" target="_blank" class="btn-primary inline-block text-center text-sm px-6 py-3 rounded-full text-white font-semibold">Visit Website →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card rounded-3xl overflow-hidden border border-white/5 flex flex-col justify-between group hover:border-purple-500/30 transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800" alt="Classic Car Care" class="w-full h-56 sm:h-64 object-cover transition duration-500 group-hover:scale-[1.02]">
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Classic Car Care</h3>
+                            <p class="text-purple-400 mb-4 font-semibold text-sm sm:text-base">Premium mechanic and automotive service</p>
+                            <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 font-medium">Appointment scheduling, service tracking, and maintenance reminders.</p>
+                        </div>
+                        <div>
+                            <a href="https://classic-car-care.vercel.app/" target="_blank" class="btn-primary inline-block text-center text-sm px-6 py-3 rounded-full text-white font-semibold">Visit Website →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#0D111A] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 px-4">
+                <span class="text-blue-500 font-semibold tracking-wider text-xs sm:text-sm uppercase bg-blue-500/10 px-3 py-1.5 rounded-full">Industries We Serve</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-5 text-white">Transforming <span class="gradient-text">Every Industry</span></h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">🍽️ <span class="text-white mt-1">Catering</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">🍕 <span class="text-white mt-1">Restaurant</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">📸 <span class="text-white mt-1">Photography</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">✂️ <span class="text-white mt-1">Salon</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">🔧 <span class="text-white mt-1">Car Mechanic</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">🚀 <span class="text-white mt-1">Startup</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">🏢 <span class="text-white mt-1">Corporate</span></div>
+                <div class="glass-card p-5 sm:p-6 text-center rounded-2xl hover-lift border border-white/5 text-sm sm:text-base font-bold flex flex-col items-center justify-center gap-1">🛍️ <span class="text-white mt-1">E-commerce</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#080B10] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 px-4">
+                <span class="text-blue-500 font-semibold tracking-wider text-xs sm:text-sm uppercase bg-blue-500/10 px-3 py-1.5 rounded-full">Why Choose Us</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-5 text-white">Why Businesses <span class="gradient-text">Choose WEBLIX</span></h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="glass-card p-5 sm:p-6 text-center hover-lift border border-white/5 rounded-2xl">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <h3 class="font-bold text-white text-sm sm:text-base">Fast Performance</h3>
+                </div>
+                <div class="glass-card p-5 sm:p-6 text-center hover-lift border border-white/5 rounded-2xl">
+                    <div class="text-3xl mb-3">📱</div>
+                    <h3 class="font-bold text-white text-sm sm:text-base">Mobile Friendly</h3>
+                </div>
+                <div class="glass-card p-5 sm:p-6 text-center hover-lift border border-white/5 rounded-2xl">
+                    <div class="text-3xl mb-3">🛡️</div>
+                    <h3 class="font-bold text-white text-sm sm:text-base">Secure & Reliable</h3>
+                </div>
+                <div class="glass-card p-5 sm:p-6 text-center hover-lift border border-white/5 rounded-2xl">
+                    <div class="text-3xl mb-3">📈</div>
+                    <h3 class="font-bold text-white text-sm sm:text-base">SEO Optimized</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#0D111A] border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 px-4">
+                <span class="text-blue-500 font-semibold tracking-wider text-xs sm:text-sm uppercase bg-blue-500/10 px-3 py-1.5 rounded-full">Pricing</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-5 text-white">June First Week <span class="gradient-text">Offer</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="glass-card p-6 sm:p-8 text-center relative rounded-3xl border border-white/10 hover-lift bg-gradient-to-br from-[#0c1626]/80 to-[#030712]/90 flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-gradient-to-r from-primary to-secondary text-white px-5 py-1.5 rounded-bl-2xl text-xs font-bold uppercase tracking-wider">50% OFF</div>
+                    <div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-3 text-white">Frontend Website</h3>
+                        <div class="text-5xl font-extrabold mb-2 text-white">₹99</div>
+                        <p class="text-gray-500 line-through mb-6">₹199</p>
+                        <ul class="text-left space-y-3 mb-8 text-gray-300 text-sm font-medium">
+                            <li class="flex items-center gap-2">✓ <span>Responsive Design</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Modern UI Layout</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Mobile Friendly Architecture</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Lightning Fast Performance</span></li>
+                        </ul>
+                    </div>
+                    <button class="btn-primary w-full py-3.5 rounded-full text-white font-bold text-sm shadow-lg shadow-blue-500/20" onclick="startProjectWhatsApp()">Claim Offer →</button>
+                </div>
+                <div class="glass-card p-6 sm:p-8 text-center rounded-3xl border border-white/5 hover-lift flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-4 text-white">Full Stack Website</h3>
+                        <div class="text-3xl font-extrabold mb-6 gradient-text py-2">Custom Pricing</div>
+                        <ul class="text-left space-y-3 mb-8 text-gray-300 text-sm font-medium">
+                            <li class="flex items-center gap-2">✓ <span>Custom Backend Development</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Database Architecture Design</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Secure User Authentication</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Robust Administrator Dashboard</span></li>
+                            <li class="flex items-center gap-2">✓ <span>Seamless Payment Integration</span></li>
+                        </ul>
+                    </div>
+                    <button class="border border-blue-500/40 px-8 py-3.5 rounded-full text-blue-400 font-semibold w-full hover:bg-blue-500/10 hover:border-blue-500 transition text-sm" onclick="startProjectWhatsApp()">Get Proposal →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-[#080B10] border-t border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 px-4">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Frequently Asked <span class="gradient-text">Questions</span></h2>
+            </div>
+            <div class="space-y-4">
+                <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 transition hover:border-blue-500/20">
+                    <h3 class="font-bold text-base sm:text-lg text-blue-400 flex items-start gap-2">❓ <span>What is a domain and do I need one?</span></h3>
+                    <p class="text-gray-300 mt-2 text-xs sm:text-sm pl-7 leading-relaxed font-medium">A domain is your website's address (like yourbusiness.com). Yes, you need one to establish your online presence. We can help you register the perfect domain for your brand.</p>
+                </div>
+                <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 transition hover:border-blue-500/20">
+                    <h3 class="font-bold text-base sm:text-lg text-blue-400 flex items-start gap-2">❓ <span>How long does development take?</span></h3>
+                    <p class="text-gray-300 mt-2 text-xs sm:text-sm pl-7 leading-relaxed font-medium">Project timelines vary based on complexity. A standard frontend website takes 2-3 weeks, while full-stack applications take 4-8 weeks.</p>
+                </div>
+                <div class="glass-card p-5 sm:p-6 rounded-2xl border border-white/5 transition hover:border-blue-500/20">
+                    <h3 class="font-bold text-base sm:text-lg text-blue-400 flex items-start gap-2">❓ <span>Do you provide support?</span></h3>
+                    <p class="text-gray-300 mt-2 text-xs sm:text-sm pl-7 leading-relaxed font-medium">Absolutely! We offer 24/7 support, monthly maintenance, security updates, and 30 days of free post-launch support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 sm:py-28 px-4 sm:px-6 md:px-8 bg-gradient-to-b from-[#080B10] via-[#0E1119] to-[#030712] border-t border-white/5 relative overflow-hidden">
+        <!-- Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] md:w-[700px] h-[350px] md:h-[700px] rounded-full bg-gradient-to-r from-purple-500/5 to-indigo-500/5 blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+                <div class="lg:col-span-5 flex flex-col gap-6 w-full">
+                    <div class="px-2">
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">Let's Build Something <span class="gradient-text">Extraordinary.</span></h2>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 font-medium">Ready to take your business online with a premium, responsive website? We respond instantly on WhatsApp.</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/5 flex flex-col gap-6">
+                        <div class="flex items-center gap-4 cursor-pointer hover:opacity-90 transition" onclick="openInstagram()">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/10 p-2.5">
+                                <img src="instagram.png" alt="Instagram" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 mb-0.5">Instagram</p>
+                                <span class="text-sm sm:text-base font-bold text-white">@weblix_world_2026</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/10 p-2.5">
+                                <img src="email-logo-png-1110.png" alt="Email" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 mb-0.5">Email</p>
+                                <span class="text-sm sm:text-base font-bold text-white">hello@weblix.com</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300 cursor-pointer hover:opacity-90 transition" onclick="startProjectWhatsApp()">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/10 p-2.5">
+                                <img src="whatsapp.png" alt="WhatsApp" class="w-full h-full object-contain">
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 mb-0.5">WhatsApp</p>
+                                <span class="text-sm sm:text-base font-bold text-white">+91 63697 33630</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Card -->
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 text-center relative overflow-hidden bg-gradient-to-br from-[#0e1724]/90 to-[#070e17]/90 shadow-xl w-full">
+                        <div class="text-4xl mb-3">💬</div>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-1 text-green-400">WhatsApp Business</h3>
+                        <p class="text-xs text-gray-300 mb-4 font-semibold">Fastest way to get a response</p>
+                        <button class="btn-whatsapp w-full py-4 text-sm sm:text-base font-bold text-white rounded-full shadow-lg shadow-green-500/20" onclick="startProjectWhatsApp()">💬 Chat Now on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 glass-card p-6 sm:p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl w-full">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 text-white text-center lg:text-left">Send us a <span class="gradient-text">Message</span></h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-8 text-center lg:text-left font-medium">We'll respond on WhatsApp within minutes!</p>
+                    
+                    <form id="contactFormHtml" class="space-y-4" onsubmit="handleFormSubmit(event)">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input id="formName" type="text" placeholder="Your Name *" required class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 text-sm">
+                            <input id="formBusiness" type="text" placeholder="Business Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 text-sm">
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input id="formPhone" type="tel" placeholder="Phone Number *" required class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 text-sm">
+                            <input id="formEmail" type="email" placeholder="Email Address *" required class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 text-sm">
+                        </div>
+                        
+                        <div class="relative">
+                            <select id="formService" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-gray-400 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 cursor-pointer appearance-none text-sm">
+                                <option value="" class="bg-[#0b0f19] text-gray-400">Select Service Interested In</option>
+                                <option value="Frontend Website" class="bg-[#0b0f19] text-white">Frontend Website (₹99 Offer)</option>
+                                <option value="Full Stack Development" class="bg-[#0b0f19] text-white">Full Stack Development</option>
+                                <option value="UI/UX Design" class="bg-[#0b0f19] text-white">UI/UX Design</option>
+                                <option value="Performance Optimization" class="bg-[#0b0f19] text-white">Performance Optimization</option>
+                            </select>
+                            <div class="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">▼</div>
+                        </div>
+                        
+                        <textarea id="formMessage" placeholder="Tell us about your project... *" rows="4" required class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:bg-white/10 outline-none transition duration-300 resize-none text-sm"></textarea>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                            <button type="submit" class="btn-whatsapp flex-1 py-4 text-sm sm:text-base font-bold text-white rounded-full flex items-center justify-center gap-2 shadow-lg shadow-green-500/10">💬 Send to WhatsApp</button>
+                            <button type="button" class="btn-outline flex-1 py-4 text-sm sm:text-base font-bold border border-white/20 bg-white/5 hover:bg-white/10 text-white rounded-full" onclick="openInstagram()">📷 View Instagram</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark border-t border-white/5 text-white py-16 px-4 sm:px-6 md:px-8 text-center relative">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="flex items-center justify-center gap-2.5 mb-4">
+                <img src="logo.png" alt="WEBLIX Logo" class="h-8 w-8 object-contain rounded-lg border border-white/10">
+                <span class="text-3xl font-extrabold gradient-text tracking-wide">WEBLIX</span>
+            </div>
+            <p class="text-gray-400 mb-8 text-sm sm:text-base font-medium">We Build Websites That Build Businesses.</p>
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-8 mb-8 text-sm font-semibold">
+                <a href="#home" class="text-gray-400 hover:text-white transition">Home</a>
+                <a href="#about" class="text-gray-400 hover:text-white transition">About</a>
+                <a href="#services" class="text-gray-400 hover:text-white transition">Services</a>
+                <a href="#projects" class="text-gray-400 hover:text-white transition">Projects</a>
+                <a href="#pricing" class="text-gray-400 hover:text-white transition">Pricing</a>
+                <a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a>
+            </div>
+            <p class="text-gray-600 text-xs sm:text-sm border-t border-white/5 pt-8 w-full font-medium">© 2026 WEBLIX. All rights reserved. | 📷 @weblix_world_2026</p>
+        </div>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUMBER = "6369733630";
+        const INSTAGRAM_PROFILE = "https://www.instagram.com/weblix_world_2026?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
+
+        // Mobile menu functions
+        function openMenu() {
+            document.getElementById('mobileMenu').classList.add('active');
+            const overlay = document.getElementById('menuOverlay');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.add('active');
+                overlay.style.opacity = '1';
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            const overlay = document.getElementById('menuOverlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        function startProjectWhatsApp() {
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20WEBLIX!%20I%27m%20interested%20in%20your%20web%20development%20services.%20Please%20share%20more%20details.`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function openInstagram() {
+            window.open(INSTAGRAM_PROFILE, '_blank');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('formName').value;
+            const businessName = document.getElementById('formBusiness').value;
+            const phone = document.getElementById('formPhone').value;
+            const email = document.getElementById('formEmail').value;
+            const service = document.getElementById('formService').value;
+            const messageText = document.getElementById('formMessage').value;
+
+            const message = `*NEW PROJECT INQUIRY FROM STATIC WEBLIX WEBSITE*%0A%0A
+*📋 PROJECT DETAILS*%0A
+━━━━━━━━━━━━━━━━━━━━%0A
+*👤 Name:* ${name || "Not provided"}%0A
+*🏢 Business Name:* ${businessName || "Not provided"}%0A
+*📞 Phone:* ${phone || "Not provided"}%0A
+*📧 Email:* ${email || "Not provided"}%0A
+*🎯 Service:* ${service || "Not selected"}%0A
+%0A
+*💬 Message:*%0A${messageText || "No message provided"}%0A
+%0A
+*⏰ Submitted:* ${new Date().toLocaleString()}%0A
+━━━━━━━━━━━━━━━━━━━━%0A
+*🌐 Source:* WEBLIX Portfolio Website`;
+
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        // Navbar shadow on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 30) {
+                nav.classList.add('shadow-xl', 'bg-[#030712]/95');
+                nav.classList.remove('bg-[#030712]/80');
+            } else {
+                nav.classList.remove('shadow-xl', 'bg-[#030712]/95');
+                nav.classList.add('bg-[#030712]/80');
+            }
+        });
+    </script>
+</body>
+</html>
